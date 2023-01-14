@@ -1,0 +1,10 @@
+import maya.cmds as cmds
+
+# Select the node from which you want to connect the outColor
+selectedNode = cmds.ls(selection=True)[0]
+
+# Create an aiRange node followed by an aiColorCorrect node
+aiRange = cmds.createNode("aiRange")
+cmds.connectAttr(selectedNode + ".outColor", aiRange + ".input", force=True)
+aiColorCorrect = cmds.createNode("aiColorCorrect")
+cmds.connectAttr(aiRange + ".outColor", aiColorCorrect + ".input", force=True)
