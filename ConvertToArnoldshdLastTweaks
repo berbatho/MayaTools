@@ -1,0 +1,18 @@
+import maya.cmds as cmds
+
+# Get selected nodes in Hypershade
+selected_nodes = cmds.ls(sl=True)
+
+# Loop through selected nodes
+for node in selected_nodes:
+    # Check if node is an Arnold Standard Surface shader
+    if cmds.nodeType(node) == 'aiStandardSurface':
+        # Check if emissionWeight attribute exists on the node
+        if cmds.attributeQuery('emission', node=node, exists=True):
+            # Set emission weight to 0
+            cmds.setAttr(node+'.emission', 0)
+        
+        # Check if coat attribute exists on the node
+        if cmds.attributeQuery('coat', node=node, exists=True):
+            # Set coat weight to 0
+            cmds.setAttr(node+'.coat', 0)
